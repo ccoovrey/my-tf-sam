@@ -1,0 +1,27 @@
+name: terraform-dev
+run-name: Terraform Dev Testing
+on: 
+  workflow_dispatch: {}
+  
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+jobs:
+  terraform-dev-configuration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Terraform
+        run: |
+          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update
+          sudo apt install terraform
+      - name: Initialize the Terraform Configuration
+        run: terraform init  
+      - name: Validate Terraform Configuration
+        run: terraform validate 
+      - name: Run Terraform Plan
+        run: terraform plan 
+      - name: Run Terraform Apply
+        run: terraform apply -auto-approve 
