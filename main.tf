@@ -109,38 +109,36 @@ resource "aws_iam_role" "iam_for_dynamo" {
   name = "dynamodb_access"
 
   assume_role_policy = jsonencode({
-        Version = "2012-10-17",
-        Statement = [
-            {
-              Action = [
-                "dynamodb:List*",
-                "dynamodb:DescribeReservedCapacity*",
-                "dynamodb:DescribeLimits",
-                "dynamodb:DescribeTimeToLive"
-              ],
-              Resource =  "*",
-              Effect = "Allow"
-            },
-            {
-              Action = [
-                "dynamodb:BatchGet*",
-                "dynamodb:DescribeStream",
-                "dynamodb:DescribeTable",
-                "dynamodb:Get*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:BatchWrite*",
-                "dynamodb:CreateTable",
-                "dynamodb:Delete*",
-                "dynamodb:Update*",
-                "dynamodb:PutItem"
-              ],
-              Resource = [
-                "${aws_dynamodb_table.book-reviews-ddb-table.arn}"
-              ],
-              Effect = "Allow"
-            }
-        ]
+    Version = "2012-10-17",
+    Statement = [
+        {
+          Action = [
+            "dynamodb:List*",
+            "dynamodb:DescribeReservedCapacity*",
+            "dynamodb:DescribeLimits",
+            "dynamodb:DescribeTimeToLive"
+          ],
+          Resource =  "*",
+          Effect = "Allow"
+        },
+        {
+          Action = [
+            "dynamodb:BatchGet*",
+            "dynamodb:DescribeStream",
+            "dynamodb:DescribeTable",
+            "dynamodb:Get*",
+            "dynamodb:Query",
+            "dynamodb:Scan",
+            "dynamodb:BatchWrite*",
+            "dynamodb:CreateTable",
+            "dynamodb:Delete*",
+            "dynamodb:Update*",
+            "dynamodb:PutItem"
+          ],
+          Resource = "*", 
+          Effect = "Allow"
+        }
+      ]
   })
 }
 

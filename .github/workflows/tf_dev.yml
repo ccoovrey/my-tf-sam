@@ -17,6 +17,8 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
           sudo apt update
           sudo apt install terraform
+      - name: Fix terraform file permissions
+        run: find /tmp -name "terraform" -type f -exec chmod 755 {} +
       - name: Initialize the Terraform Configuration
         run: terraform init  
       - name: Validate Terraform Configuration
