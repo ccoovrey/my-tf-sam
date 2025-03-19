@@ -55,7 +55,7 @@ resource "aws_lambda_function" "publish_book_review" {
     role = aws_iam_role.iam_for_lambda.arn
     timeout = 30
     depends_on = [
-        null_resource.build_lambda_function
+        terraform_data.build_lambda_function
     ]
 
     environment {
@@ -73,7 +73,7 @@ resource "terraform_data" "sam_metadata_aws_lambda_function_publish_book_review"
         built_output_path = "${local.building_path}/${local.lambda_code_filename}"
     }
     depends_on = [
-        null_resource.build_lambda_function
+        terraform_data.build_lambda_function
     ]
 }
 
