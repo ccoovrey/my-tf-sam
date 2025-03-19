@@ -65,8 +65,8 @@ resource "aws_lambda_function" "publish_book_review" {
   }
 }
 
-resource "null_resource" "sam_metadata_aws_lambda_function_publish_book_review" {
-    triggers = {
+resource "terraform_data" "sam_metadata_aws_lambda_function_publish_book_review" {
+    triggers_replace = {
         resource_name = "aws_lambda_function.publish_book_review"
         resource_type = "ZIP_LAMBDA_FUNCTION"
         original_source_code = "${local.lambda_src_path}"
@@ -77,8 +77,8 @@ resource "null_resource" "sam_metadata_aws_lambda_function_publish_book_review" 
     ]
 }
 
-resource "null_resource" "build_lambda_function" {
-    triggers = {
+resource "terraform_data" "build_lambda_function" {
+    triggers_replace = {
         build_number = "${timestamp()}" # TODO: calculate hash of lambda function. Mo will have a look at this part
     }
 
