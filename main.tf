@@ -106,7 +106,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 
 resource "aws_iam_role" "iam_for_dynamo" {
-  name = "dynamodb access"
+  name = "dynamodb_access"
 
   assume_role_policy = jsonencode({
         Version = "2012-10-17",
